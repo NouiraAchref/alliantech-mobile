@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "alliantch-mobile",
-    "slug": "alliantch-mobile",
+    "name": "alliantch",
+    "slug": "alliantech",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#002235"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.achref_nouira9.alliantech"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +41,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f4db45b5-7f26-4033-8ec7-238e789edc52"
+      }
+    },
+    "owner": "achref_nouira9"
   }
 }

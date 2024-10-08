@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   ScrollView,
   Pressable,
+  Linking,
 } from "react-native";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -154,10 +155,61 @@ export default function HomeScreen() {
         <>
           {detections.map((detection, index) => (
             <View key={index} style={styles.detectionCard}>
-              <ThemedText type="subtitle">{detection.class_name}</ThemedText>
+              {/* <ThemedText type="subtitle">{detection.class_name}</ThemedText>
               <ThemedText>
                 Confidence: {(detection.confidence * 100).toFixed(2)}%
-              </ThemedText>
+              </ThemedText> */}
+
+              <View style={styles.card}>
+                {/*Title */}
+                <ThemedText style={[styles.title, { fontSize: 20 }]}>
+                  {detection?.info.name || "No model information."}
+                </ThemedText>
+                {/* Model */}
+                <ThemedText style={styles.title}>Model</ThemedText>
+                <ThemedText
+                  style={[
+                    styles.text,
+                    { fontWeight: "bold", color: "#fab113", fontSize: 20 },
+                  ]}
+                >
+                  {detection?.info.model || "No model information."}
+                </ThemedText>
+                {/* Description */}
+                <ThemedText style={styles.title}>Description</ThemedText>
+                <ThemedText style={styles.text}>
+                  {detection?.info.description || "No description available."}
+                </ThemedText>
+
+                <View style={{ flexDirection: "row", gap: 10 }}>
+                  {/* Datasheet */}
+                  {detection?.info.datasheet && (
+                    <Pressable
+                      style={styles.link}
+                      onPress={() => Linking.openURL(detection?.info.datasheet)}
+                    >
+                      <ThemedText style={[styles.text, { fontWeight: "bold" }]}>
+                        Datasheet
+                      </ThemedText>
+                      <AntDesign name="pdffile1" size={20} color="white" />
+                    </Pressable>
+                  )}
+                  {/* User Manual */}
+                  {detection?.info.userManual && (
+                    <Pressable
+                      style={styles.link}
+                      onPress={() =>
+                        Linking.openURL(detection?.info.userManual)
+                      }
+                    >
+                      <ThemedText style={[styles.text, { fontWeight: "bold" }]}>
+                        User Manual
+                      </ThemedText>
+                      <AntDesign name="pdffile1" size={24} color="white" />
+                    </Pressable>
+                  )}
+                </View>
+              </View>
             </View>
           ))}
           {image && (
@@ -285,5 +337,28 @@ const styles = StyleSheet.create({
     left: 0,
     position: "absolute",
     objectFit: "cover",
+  },
+  card: {},
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  text: {
+    fontSize: 14,
+
+    lineHeight: 20,
+  },
+  link: {
+    backgroundColor: "#f11919",
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-start",
+    padding: 8,
+    marginVertical: 10,
+    borderRadius: 5,
   },
 });
